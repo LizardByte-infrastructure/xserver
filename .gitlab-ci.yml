@@ -21,7 +21,7 @@ variables:
     REPO_URL_XORGPROTO:   'https://gitlab.freedesktop.org/xorg/proto/xorgproto.git'
     XORG_DEBIAN_VERSION:  'bookworm-slim'
     XORG_DEBIAN_EXEC:     'env FDO_CI_CONCURRENT=${FDO_CI_CONCURRENT} bash .gitlab-ci/debian-install.sh'
-    XORG_DEBIAN_TAG:      '2026-07-29-wayland'
+    XORG_DEBIAN_TAG:      '2026-09-06-fallthrough'
     XORG_FREEBSD_VERSION: '15.1'
     XORG_FREEBSD_EXEC:    ''
     XORG_FREEBSD_TAG:     '2026-07-09-freebsd-15.1'
@@ -239,7 +239,7 @@ freebsd:
     variables:
         MESON_ARGS: -Dglx=false -Dglamor=false -Dudev=false -Dudev_kms=false
     script:
-      # running of of disk space without this
+      # running out of disk space without this
       # needed until https://gitlab.freedesktop.org/freedesktop/ci-templates/-/issues/67 is fixed
       - git gc
       - git clone --depth=1 $REPO_URL_XORGPROTO dep.xorgproto
@@ -247,7 +247,7 @@ freebsd:
       - set +e
       - scp -r $PWD "vm:"
       # need to install newer xorgproto
-      - /app/vmctl exec "cd $CI_PROJECT_NAME/dep.xorgproto && ./autogen.sh --prefix=/usr && make && make install"
+      - /app/vmctl exec "cd $CI_PROJECT_NAME/dep.xorgproto && ./autogen.sh --prefix=/usr/local --disable-specs && make && make install"
       - /app/vmctl exec "cd $CI_PROJECT_NAME && PKG_CONFIG_PATH=\"$PKG_CONFIG_PATH\" MESON_ARGS=\"$MESON_ARGS\" MESON_BUILDDIR=\"$MESON_BUILDDIR\" .gitlab-ci/meson-build.sh --skip-test" && touch .success
       # test not working yet, so skipped
       # - scp -r vm:$CI_PROJECT_NAME/test-results.xml .

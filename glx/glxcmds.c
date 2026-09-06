@@ -2435,7 +2435,7 @@ __glXDisp_QueryServerString(__GLXclientState * cl, GLbyte * pc)
             ptr = pGlxScreen->glvnd;
             break;
         }
-        /* else fall through */
+        _X_FALLTHROUGH; /* else fall through */
     default:
         return BadValue;
     }

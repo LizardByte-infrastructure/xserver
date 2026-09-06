@@ -136,9 +136,9 @@ ninja -C _build -j${FDO_CI_CONCURRENT:-4} install
 cd ..
 rm -rf drm
 
-# xserver requires xorgproto >= 2024.1 for XWAYLAND
+# xserver requires xorgproto >= 2025.1 for _X_FALLTHROUGH
 # but Debian bookworm has only 2022.1
-git clone https://gitlab.freedesktop.org/xorg/proto/xorgproto.git --depth 1 --branch=xorgproto-2024.1
+git clone https://gitlab.freedesktop.org/xorg/proto/xorgproto.git --depth 1 --branch=xorgproto-2025.1
 pushd xorgproto
 ./autogen.sh
 make -j${FDO_CI_CONCURRENT:-4} install

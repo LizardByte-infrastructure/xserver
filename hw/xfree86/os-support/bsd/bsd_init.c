@@ -244,7 +244,7 @@ xf86OpenConsole(void)
             if (i >= 310)
                 goto acquire_vt;
 #endif
-            /* otherwise fall through */
+            _X_FALLTHROUGH; /* otherwise fall through */
         case PCVT:
 #if !(defined(__NetBSD__) && (__NetBSD_Version__ >= 200000000))
             /*
