@@ -3563,6 +3563,10 @@ xwl_seat_clear_touch(struct xwl_seat *xwl_seat, struct xwl_window *xwl_window)
     xorg_list_for_each_entry_safe(xwl_touch, next_xwl_touch,
                                   &xwl_seat->touches, link_touch) {
         if (xwl_touch->window == xwl_window) {
+            /* End the DIX/DDX touch sequence so a later touch that reuses
+             * the same Wayland id does not hit a stale active touchpoint.
+             */
+            xwl_touch_send_event(xwl_touch, xwl_seat, XI_TouchEnd);
             xorg_list_del(&xwl_touch->link_touch);
             free(xwl_touch);
         }
