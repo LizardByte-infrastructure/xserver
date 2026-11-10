@@ -3,10 +3,10 @@ project('xorg-server', 'c',
             'buildtype=debugoptimized',
             'c_std=gnu99',
         ],
-        version: '26.0.99.903',
+        version: '26.0.99.904',
         meson_version: '>= 1.0.0',
 )
-release_date = '2026-10-06'
+release_date = '2026-11-10'
 
 add_project_arguments('-DHAVE_DIX_CONFIG_H', language: ['c', 'objc'])
 cc = meson.get_compiler('c')
